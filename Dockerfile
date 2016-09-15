@@ -1,15 +1,15 @@
 FROM nimmis/alpine-glibc
 
-MAINTAINER nimmis <kjell.havneskold@gmail.com>
+MAINTAINER fadlihub <fadli.ramadhan@elitery.com>
 
 COPY root/. /
 
 RUN apk update && apk upgrade && \
     cd /root && \
-    curl https://download-cdn.getsync.com/stable/linux-x64/BitTorrent-Sync_x64.tar.gz | tar xfz - && \
+    curl http://download-lb.utorrent.com/endpoint/btsync/os/linux-x64/track/stable | tar xfz - && \
     mv btsync /usr/local/bin && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apk/* && mkdir -p /var/www/html && adduser -S www-data && addgroup -S www-data && chown -R www-data:www-data /var/www/html
 
-VOLUME /data
+VOLUME /var/www/html
 
 

@@ -12,7 +12,7 @@ The first nod creates a uniq secret used to sync all nodes, map the directory yo
 
 Example synk the directory /home/me/data on first nod giving it the name syncnode
 
-	docker run -d -v /home/me/data:/data --name syncnode nimmis/btsync
+	docker run -d -v /home/me/data:/var/www/html --name syncnode nimmis/btsync
 
 
 to see the secret code to use on the other nodes, look at the log-output from the container
@@ -40,7 +40,7 @@ first container but all sub-folders will be the same. So starting a second sync 
 on another docker machine using local directory /home/you/sync-backup and using the secret
 key obtained from the first sync node example above 
 
-	docker run -d -v /home/you/sync-backup:/data --name syncnode2 -e BTSYNC_SECRET=AF2INNKYP672IGIIDTDWWVUBGP2AQRFKX nimmis/btsync
+	docker run -d -v /home/you/sync-backup:/var/www/html --name syncnode2 -e BTSYNC_SECRET=AF2INNKYP672IGIIDTDWWVUBGP2AQRFKX nimmis/btsync
 
 NOTE!!!!! DO NOT USE the secret key in this example, use the one you got from the first sync node run.
 
@@ -53,7 +53,7 @@ execute the following command on the sync container to check
 
 if you get a hit on something that look like
 
-	[20160710 13:38:31.611] MUTEX[/data]: share id mismatch, ARGCQRK35Z3DH5DPNATQOCXREYS6ZYYJV != ATFQAUDKIQKHE4IHHHBV2EZFN4HNILPRK
+	[20160710 13:38:31.611] MUTEX[/var/www/html]: share id mismatch, ARGCQRK35Z3DH5DPNATQOCXREYS6ZYYJV != ATFQAUDKIQKHE4IHHHBV2EZFN4HNILPRK
 
 The sync data is not valid for the current key, just stop the container and remove old sync information
 
